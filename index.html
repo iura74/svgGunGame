@@ -5,17 +5,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <!--<div class="btns">
-    <button id="left">&lt;-</button>
-    <button id="right">-&gt;</button>
-  </div>-->
+  
   <svg width="750" height="500" id="game" style="border: 1px solid">
     <path id="shot" d="" stroke="black" fill="transparent" stroke-dasharray="3 15" stroke-width="3" />
-    <line id="gun" x1="0" y1="500" x2="0" y2="500" stroke="black" fill="black" stroke-width="5" />
-    
+    <line id="gun" x1="0" y1="500" x2="0" y2="500" stroke="black" fill="black" stroke-width="5" />    
   </svg>
+
+  <div class="btns">
+    <div id="fire" class="btn">⊕</div>
+    <div id="left" class="btn">↺</div>
+    <div id="right" class="btn">↻</div>    
+  </div>
   
   <script src="./main.js" type="module"></script>
 </body>

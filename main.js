@@ -50,11 +50,27 @@ document.body.addEventListener('keydown', (event) => {
   }
 });
 
-/*const btnRight = document.getElementById('right');
-const btnLeft = document.getElementById('left');
+if (/Mobi/i.test(window.navigator.userAgent)) {
+  const btnRight = document.getElementById('right');
+  const btnLeft = document.getElementById('left');
+  const btnFire = document.getElementById('fire');
 
-btnLeft.addEventListener('click', () => { bigGun.turnLeft() });
-btnRight.addEventListener('click', () => { bigGun.turnRight() });*/
+  btnLeft.addEventListener('click', () => { 
+    if (!gameAlive) { return;}
+    bigGun.turnLeft();
+  });
+  btnRight.addEventListener('click', () => {
+    if (!gameAlive) { return; }
+    bigGun.turnRight();
+  });
+  btnFire.addEventListener('click', () => {
+    if (!gameAlive) { return; }
+    const distance = shot({ posX: gameWidth / 2, maxY: gameHeight, angle: bigGun.getAngle() });
+    emenys.forEach(x => x.attak(distance));
+  });
+
+}
+
 
 
 
