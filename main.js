@@ -27,7 +27,14 @@ const emenyObj = {
   }
  };
 
-setInterval( () => { emenys.push(new enemy(emenyObj)); }, 6000);
+const minPouse = 1500;
+const addEnemy = (pouse = 6000) => {
+  emenys.push(new enemy(emenyObj));
+  const nextPouse = pouse * 0.95;
+  setTimeout(() => { addEnemy(nextPouse > minPouse ? nextPouse : minPouse);}, pouse);
+}
+addEnemy();
+//setInterval( () => { emenys.push(new enemy(emenyObj)); }, 6000);
 
 document.body.addEventListener('keydown', (event) => {
   if (!gameAlive) {return;}
