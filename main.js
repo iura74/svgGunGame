@@ -50,7 +50,7 @@ document.body.addEventListener('keydown', (event) => {
   }
 });
 
-if (mobileAndTabletCheck()) {
+if (/Mobi/i.test(window.navigator.userAgent)) {
   const btnRight = document.getElementById('right');
   const btnLeft = document.getElementById('left');
   const btnFire = document.getElementById('fire');
@@ -69,6 +69,9 @@ if (mobileAndTabletCheck()) {
     emenys.forEach(x => x.attak(distance));
   });
 
+  btnRight.style.display = 'block';
+  btnLeft.style.display = 'block';
+  btnFire.style.display = 'block';
 }
 
 
