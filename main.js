@@ -8,6 +8,7 @@ const gameHeight = game.clientHeight;
 const gameWidth = game.clientWidth;
 
 const bigGun = new gun({ x: gameWidth / 2, y: gameHeight });
+const sniperShot = new shot({ posX: gameWidth / 2, maxY: gameHeight });
 
 let gameAlive = true;
 
@@ -23,7 +24,7 @@ const emenyObj = {
     if (!gameAlive) { return; }
     gameAlive = false; 
     game.insertAdjacentHTML('afterbegin', `<text x="${gameWidth / 2}" y="${gameHeight / 2}" font-size="50" text-anchor="middle" >Game Over!</text>`);
-    game.removeChild(document.querySelector('#shot'));
+    sniperShot.clear();
   }
  };
 
@@ -45,26 +46,26 @@ document.body.addEventListener('keydown', (event) => {
     bigGun.turnRight();
   }
   if (event.key === ' ') {
-    const distance = shot({ posX: gameWidth / 2 , maxY: gameHeight, angle: bigGun.getAngle()});
+    const distance = sniperShot.fire({ angle: bigGun.getAngle()});
     emenys.forEach(x => x.attak(distance));
   }
 });
 
 
-  const btnRight = document.getElementById('right');
-  const btnLeft = document.getElementById('left');
-  const btnFire = document.getElementById('fire');
+const btnRight = document.getElementById('right');
+const btnLeft = document.getElementById('left');
+const btnFire = document.getElementById('fire');
 
-  btnLeft.addEventListener('click', () => { 
-    if (!gameAlive) { return;}
-    bigGun.turnLeft();
-  });
-  btnRight.addEventListener('click', () => {
-    if (!gameAlive) { return; }
-    bigGun.turnRight();
-  });
-  btnFire.addEventListener('click', () => {
-    if (!gameAlive) { return; }
-    const distance = shot({ posX: gameWidth / 2, maxY: gameHeight, angle: bigGun.getAngle() });
-    emenys.forEach(x => x.attak(distance));
-  });
+btnLeft.addEventListener('click', () => {
+  if (!gameAlive) { return; }
+  bigGun.turnLeft();
+});
+btnRight.addEventListener('click', () => {
+  if (!gameAlive) { return; }
+  bigGun.turnRight();
+});
+btnFire.addEventListener('click', () => {
+  if (!gameAlive) { return; }
+  const distance = shot({ posX: gameWidth / 2, maxY: gameHeight, angle: bigGun.getAngle() });
+  emenys.forEach(x => x.attak(distance));
+});
