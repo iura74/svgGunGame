@@ -50,7 +50,7 @@ document.body.addEventListener('keydown', (event) => {
   }
 });
 
-if (/Mobi/i.test(window.navigator.userAgent)) {
+if (mobileAndTabletCheck()) {
   const btnRight = document.getElementById('right');
   const btnLeft = document.getElementById('left');
   const btnFire = document.getElementById('fire');
