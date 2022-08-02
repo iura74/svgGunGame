@@ -36,7 +36,9 @@ export function enemy({ maxX, maxY, gameEl, enemysArr, gunX, onEnemyWin}) {
     const x = gunX + shotX;
     if (valBetween({ test: x, val1: state.posX, val2: state.posX + enemyLenght })) {
       kill();
+      return true;
     }
+    return false;
   };
 
 }

@@ -1,4 +1,4 @@
-import { enemy } from './enemy.js';
+import { enemyArr } from './enemyArr.js';
 import {gun} from './gun.js';
 import { shot } from './shot.js';
 
@@ -9,33 +9,17 @@ const gameWidth = game.clientWidth;
 
 const bigGun = new gun({ x: gameWidth / 2, y: gameHeight });
 const sniperShot = new shot({ posX: gameWidth / 2, maxY: gameHeight });
+const enemys = new enemyArr({ game, gameWidth, gameHeight, onEnemyWin });
 
 let gameAlive = true;
 
-const emenys = [];
-
-const emenyObj = { 
-  maxX: gameWidth, 
-  maxY: gameHeight, 
-  gameEl: game, 
-  enemysArr: emenys, 
-  gunX: gameWidth / 2, 
-  onEnemyWin() { 
-    if (!gameAlive) { return; }
-    gameAlive = false; 
-    game.insertAdjacentHTML('afterbegin', `<text x="${gameWidth / 2}" y="${gameHeight / 2}" font-size="50" text-anchor="middle" >Game Over!</text>`);
-    sniperShot.clear();
-  }
- };
-
-const minPouse = 1500;
-const addEnemy = (pouse = 6000) => {
-  emenys.push(new enemy(emenyObj));
-  const nextPouse = pouse * 0.95;
-  setTimeout(() => { addEnemy(nextPouse > minPouse ? nextPouse : minPouse);}, pouse);
+function onEnemyWin() {
+  if (!gameAlive) { return; }
+  gameAlive = false;
+  game.insertAdjacentHTML('afterbegin', `<text x="${gameWidth / 2}" y="${gameHeight / 2}" font-size="50" text-anchor="middle" >Game Over!</text>`);
+  sniperShot.clear();
+  console.log('qq');
 }
-addEnemy();
-//setInterval( () => { emenys.push(new enemy(emenyObj)); }, 6000);
 
 document.body.addEventListener('keydown', (event) => {
   if (!gameAlive) {return;}
@@ -47,7 +31,7 @@ document.body.addEventListener('keydown', (event) => {
   }
   if (event.key === ' ') {
     const distance = sniperShot.fire({ angle: bigGun.getAngle()});
-    emenys.forEach(x => x.attak(distance));
+    enemys.attakAll(distance);
   }
 });
 
@@ -66,6 +50,6 @@ btnRight.addEventListener('click', () => {
 });
 btnFire.addEventListener('click', () => {
   if (!gameAlive) { return; }
-  const distance = shot({ posX: gameWidth / 2, maxY: gameHeight, angle: bigGun.getAngle() });
-  emenys.forEach(x => x.attak(distance));
+  const distance = sniperShot.fire({ angle: bigGun.getAngle() });
+  enemys.attakAll(distance);
 });
