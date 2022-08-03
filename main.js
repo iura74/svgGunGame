@@ -2,6 +2,7 @@ import { enemyArr } from './enemyArr.js';
 import {gun} from './gun.js';
 import { score } from './score.js';
 import { shot } from './shot.js';
+import { ammunition } from './ammunition.js';
 
 const game = document.getElementById('game');
 
@@ -12,6 +13,7 @@ const bigGun = new gun({ x: gameWidth / 2, y: gameHeight });
 const sniperShot = new shot({ posX: gameWidth / 2, maxY: gameHeight });
 const enemys = new enemyArr({ game, gameWidth, gameHeight, onEnemyWin });
 const curScore = new score();
+const ammo = new ammunition();
 
 let gameAlive = true;
 
@@ -29,8 +31,11 @@ document.body.addEventListener('keydown', (event) => {
   } else if (event.key === 'ArrowRight') {
     bigGun.turnRight();
   } else if (event.key === ' ') {
-    const distance = sniperShot.fire({ angle: bigGun.getAngle()});
-    curScore.addPoints(enemys.attakAll(distance) * 100);
+    const curAmmo = ammo.getItem();
+    if (curAmmo) {
+      const distance = sniperShot.fire({ angle: bigGun.getAngle() });
+      curScore.addPoints(enemys.attakAllRange({ distance, range: curAmmo.range }) * 100);
+    }
   }
 });
 
@@ -49,6 +54,9 @@ btnRight.addEventListener('click', () => {
 });
 btnFire.addEventListener('click', () => {
   if (!gameAlive) { return; }
-  const distance = sniperShot.fire({ angle: bigGun.getAngle() });
-  curScore.addPoints(enemys.attakAll(distance) * 100);
+  const curAmmo = ammo.getItem();
+  if (curAmmo) {
+    const distance = sniperShot.fire({ angle: bigGun.getAngle() });
+    curScore.addPoints(enemys.attakAllRange({ distance, range: curAmmo.range }) * 100);
+  }
 });

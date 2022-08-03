@@ -6,8 +6,7 @@ export function enemyArr({ game, gameWidth, gameHeight, onEnemyWin }) {
   const emenyObj = {
     maxX: gameWidth,
     maxY: gameHeight,
-    gameEl: game,
-    enemysArr: emenys,
+    gameEl: game,    
     gunX: gameWidth / 2,
     onEnemyWin
   };
@@ -19,6 +18,15 @@ export function enemyArr({ game, gameWidth, gameHeight, onEnemyWin }) {
   };
   addEnemy();
 
-  this.attakAll = (distance) => emenys.filter(x => x.attak(distance)).length;
+  this.attakAll = (distance) => { 
+    const emenysToKill = emenys.filter(x => x.attak(distance));
+    emenysToKill.forEach(x => emenys.splice(emenys.indexOf(x), 1));
+    return emenysToKill.length;
+  };
+  this.attakAllRange = ({ distance, range }) => {
+    const emenysToKill = emenys.filter(x => x.attakRange({ shotX: distance, range }));
+    emenysToKill.forEach(x => emenys.splice(emenys.indexOf(x), 1));
+    return emenysToKill.length;
+  };
 
 }
