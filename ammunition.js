@@ -1,9 +1,10 @@
 export function ammunition() {
-  // ammoTypes ⁖ ⛬ ⁙ • ⬤ ◉ ⦿ 🅞
+  // ammoTypes ⁖ ⛬ ⁙ • ⬤ ◉ ⦿ 🅞 ☢
   const maxLenght = 5;
   const ammoTypes = [
-    { icon: '⛬', range: 3000, name: 'картечь', chance: 0.05 },
-    { icon: '⦿', range: 0, name: 'снаряд', chance: 1 }
+    { icon: '☢', range: 1000, name: 'разрывной', chance: 0.01 },
+    { icon: '⛬', range: 40, name: 'разрывной', chance: 0.06 },
+    { icon: '⦿', range: 0, name: 'обычный', chance: 1 }
   ];
   const ammoEl = document.querySelector('#ammo');
   let ammoArr = [];
